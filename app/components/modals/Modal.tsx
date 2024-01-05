@@ -9,11 +9,11 @@ interface ModalProps {
   onclose: () => void;
   onSubmit: () => void;
   title: string;
-  body: React.ReactElement;
-  footer: React.ReactElement;
+  body?: React.ReactElement;
+  footer?: React.ReactElement;
   actionLabel: string;
   disabled: boolean;
-  secondaryAction: () => void;
+  secondaryAction?: () => void;
   secondaryLabel: string;
 }
 
