@@ -9,6 +9,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../Inputs/Input";
+import toast from "react-hot-toast";
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
 
@@ -35,7 +36,7 @@ const RegisterModal = () => {
         registerModal.onClose();
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("something went wrong");
       })
       .finally(() => {
         setIsLoading(false);
