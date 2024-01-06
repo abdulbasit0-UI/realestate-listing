@@ -12,6 +12,7 @@ import Input from "../Inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
 import { BiLogoGithub } from "react-icons/bi";
+import { signIn } from "next-auth/react";
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
 
@@ -94,7 +95,7 @@ const RegisterModal = () => {
         outline
         label="Continue with Github"
         icon={BiLogoGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row justify-center items-center gap-2">
