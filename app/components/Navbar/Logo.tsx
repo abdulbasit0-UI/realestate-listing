@@ -7,6 +7,7 @@ const Logo = () => {
   const router = useRouter();
   return (
     <Image
+      onClick={() => router.push("/")}
       alt="Logo"
       height="100"
       width="100"
