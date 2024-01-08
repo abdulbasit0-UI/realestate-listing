@@ -3,6 +3,7 @@
 import { User } from "@prisma/client";
 import React from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import useFav from "../hooks/useFav";
 
 interface HeartButtonProps {
   listingId: string;
@@ -13,9 +14,11 @@ const HeartButton: React.FC<HeartButtonProps> = ({
   listingId,
   currentUser,
 }) => {
-  const hasFav = false;
+  const { hasFav, toggleFav } = useFav({
+    listingId,
+    currentUser,
+  });
 
-  const toggleFav = () => {};
   return (
     <div
       onClick={toggleFav}
