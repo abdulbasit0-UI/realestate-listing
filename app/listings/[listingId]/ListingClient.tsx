@@ -6,6 +6,7 @@ import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservations from "@/app/components/listings/ListingReservations";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 import { Listing, Reservation, User } from "@prisma/client";
 import axios from "axios";
 import {
@@ -25,12 +26,12 @@ const initialDateRange = {
 };
 
 interface ListingClientProps {
-  reservations: Reservation[];
-  listing: Listing & {
-    user: User;
+  reservations: SafeReservation[];
+  listing: SafeListing & {
+    user: SafeUser;
   };
 
-  currentUser: User;
+  currentUser: SafeUser | null;
 }
 
 const ListingClient: React.FC<ListingClientProps> = ({
@@ -71,7 +72,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
     axios
       .post("/api/reservations", {
         totalPrice,
-        startDate: dateRange.endDate,
+        startDate: dateRange.startDate,
         endDate: dateRange.endDate,
         listingId: listing.id,
       })

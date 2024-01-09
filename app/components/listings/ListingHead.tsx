@@ -6,13 +6,14 @@ import React from "react";
 import Heading from "../Heading";
 import Image from "next/image";
 import HeartButton from "../HeartButton";
+import { SafeUser } from "@/app/types";
 
 interface ListingHeadProps {
   title: string;
   locationValue: string;
   imageSrc: string;
   id: string;
-  currentUser: User | null;
+  currentUser: SafeUser | null;
 }
 
 const ListingHead: React.FC<ListingHeadProps> = ({

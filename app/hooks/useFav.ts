@@ -4,10 +4,11 @@ import { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 import useLoginModal from "./useLoginModal";
 import { User } from "@prisma/client";
+import { SafeUser } from "../types";
 
 interface IuseFav {
   listingId: string;
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 }
 
 const useFav = ({ listingId, currentUser }: IuseFav) => {
