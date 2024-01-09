@@ -1,49 +1,46 @@
 "use client";
 
-import { Listing, Reservation, User } from "@prisma/client";
 import React, { useCallback, useState } from "react";
-import Container from "../components/Container";
-import Heading from "../components/Heading";
+import { SafeReservation, SafeUser } from "../types";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Container from "../components/Container";
+import Heading from "../components/Heading";
 import toast from "react-hot-toast";
 import ListingCard from "../components/listings/ListingCard";
-import { SafeReservation, SafeUser } from "../types";
 
-interface TripsClientProps {
+interface ReservationsClientProps {
   reservations: SafeReservation[];
-  currentUser: SafeUser | null;
+  currentUser: SafeUser;
 }
 
-const TripsClient: React.FC<TripsClientProps> = ({
-  currentUser,
+const ReservationsClient: React.FC<ReservationsClientProps> = ({
   reservations,
+  currentUser,
 }) => {
+  const [isDeletingId, setIsDeletingId] = useState("");
   const router = useRouter();
-  const [deletingId, setDeletingId] = useState("");
-
   const onCancel = useCallback(
     (id: string) => {
-      setDeletingId(id);
+      setIsDeletingId(id);
       axios
         .delete(`/api/reservations/${id}`)
         .then(() => {
           toast.success("Canceled");
           router.refresh();
         })
-        .catch((error) => {
-          toast.error(error.response.data.error);
-          router.refresh();
+        .catch(() => {
+          toast.error("Something went wrong");
         })
         .finally(() => {
-          setDeletingId("");
+          setIsDeletingId("");
         });
     },
     [router]
   );
   return (
     <Container>
-      <Heading title="Trips" subtitle="Your Reservations" />
+      <Heading title="Reservations" />
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
         {reservations.map((reservation) => {
           return (
@@ -51,9 +48,9 @@ const TripsClient: React.FC<TripsClientProps> = ({
               key={reservation.id}
               data={reservation.listing}
               reservations={reservation}
-              onAction={onCancel}
               actionId={reservation.id}
-              disabled={deletingId === reservation.id}
+              onAction={onCancel}
+              disabled={isDeletingId === reservation.id}
               actionLabel="Cancel Reservation"
               currentUser={currentUser}
             />
@@ -64,4 +61,4 @@ const TripsClient: React.FC<TripsClientProps> = ({
   );
 };
 
-export default TripsClient;
+export default ReservationsClient;
