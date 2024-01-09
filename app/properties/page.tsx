@@ -4,12 +4,17 @@ import getCurrentUser from "../actions/getCurrentUser";
 import getReservations from "../actions/getReservations";
 import getListings from "../actions/getListings";
 import PropertiesClient from "./PropertiesClient";
+import ClientOnly from "../components/ClientOnly";
 
 const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return <EmptyState title="Unauthorized" />;
+    return (
+      <ClientOnly>
+        <EmptyState title="Unauthorized" />
+      </ClientOnly>
+    );
   }
 
   const listings = await getListings({
@@ -17,13 +22,17 @@ const PropertiesPage = async () => {
   });
 
   if (listings.length === 0) {
-    <EmptyState title="No Properties" />;
+    return (
+      <ClientOnly>
+        <EmptyState title="No Properties" />
+      </ClientOnly>
+    );
   }
   return (
     <div>
-      <Suspense>
+      <ClientOnly>
         <PropertiesClient listings={listings} currentUser={currentUser} />
-      </Suspense>
+      </ClientOnly>
     </div>
   );
 };

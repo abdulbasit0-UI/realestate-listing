@@ -3,12 +3,17 @@ import EmptyState from "../components/EmptyState";
 import getCurrentUser from "../actions/getCurrentUser";
 import getReservations from "../actions/getReservations";
 import ReservationsClient from "./ReservationsClient";
+import ClientOnly from "../components/ClientOnly";
 
 const ReservationsPage = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return <EmptyState title="Unauthorized" />;
+    return (
+      <ClientOnly>
+        <EmptyState title="Unauthorized" />;
+      </ClientOnly>
+    );
   }
 
   const reservations = await getReservations({
@@ -16,15 +21,19 @@ const ReservationsPage = async () => {
   });
 
   if (reservations.length === 0) {
-    return <EmptyState title="No Reservations" />;
+    return (
+      <ClientOnly>
+        <EmptyState title="No Reservations" />
+      </ClientOnly>
+    );
   }
   return (
-    <Suspense>
+    <ClientOnly>
       <ReservationsClient
         reservations={reservations}
         currentUser={currentUser}
       />
-    </Suspense>
+    </ClientOnly>
   );
 };
 

@@ -3,22 +3,32 @@ import getFavorites from "../actions/getFavorites";
 import EmptyState from "../components/EmptyState";
 import React, { Suspense } from "react";
 import FavoriteClient from "./FavoriteClient";
+import ClientOnly from "../components/ClientOnly";
 
 const page = async () => {
   const currentUser = await getCurrentUser();
   const favorites = await getFavorites();
   if (!currentUser) {
-    return <EmptyState title="Unauthorized" />;
+    return (
+      <ClientOnly>
+        <EmptyState title="Unauthorized" />
+      </ClientOnly>
+    );
   }
 
   if (favorites.length === 0) {
-    return <EmptyState title="No Favorites" />;
+    return (
+      <ClientOnly>
+        <EmptyState title="No Favorites" />
+      </ClientOnly>
+    );
   }
 
-  return;
-  <Suspense>
-    <FavoriteClient favorites={favorites} currentUser={currentUser} />;
-  </Suspense>;
+  return (
+    <ClientOnly>
+      <FavoriteClient favorites={favorites} currentUser={currentUser} />;
+    </ClientOnly>
+  );
 };
 
 export default page;
