@@ -1,7 +1,7 @@
 import getCurrentUser from "../actions/getCurrentUser";
 import getFavorites from "../actions/getFavorites";
 import EmptyState from "../components/EmptyState";
-import React from "react";
+import React, { Suspense } from "react";
 import FavoriteClient from "./FavoriteClient";
 
 const page = async () => {
@@ -15,7 +15,10 @@ const page = async () => {
     return <EmptyState title="No Favorites" />;
   }
 
-  return <FavoriteClient favorites={favorites} currentUser={currentUser} />;
+  return;
+  <Suspense>
+    <FavoriteClient favorites={favorites} currentUser={currentUser} />;
+  </Suspense>;
 };
 
 export default page;

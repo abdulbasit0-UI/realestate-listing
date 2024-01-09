@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Container from "./components/Container";
-import { empty } from "@prisma/client/runtime/library";
 import EmptyState from "./components/EmptyState";
 import getListings, { IListingsParams } from "./actions/getListings";
 import ListingCard from "./components/listings/ListingCard";

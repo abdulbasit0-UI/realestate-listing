@@ -7,7 +7,6 @@ import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservations from "@/app/components/listings/ListingReservations";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
-import { Listing, Reservation, User } from "@prisma/client";
 import axios from "axios";
 import {
   differenceInCalendarDays,

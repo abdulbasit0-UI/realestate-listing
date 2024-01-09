@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import EmptyState from "../components/EmptyState";
 import getCurrentUser from "../actions/getCurrentUser";
 import getReservations from "../actions/getReservations";
@@ -21,7 +21,9 @@ const PropertiesPage = async () => {
   }
   return (
     <div>
-      <PropertiesClient listings={listings} currentUser={currentUser} />
+      <Suspense>
+        <PropertiesClient listings={listings} currentUser={currentUser} />
+      </Suspense>
     </div>
   );
 };

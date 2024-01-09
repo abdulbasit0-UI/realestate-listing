@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import EmptyState from "../components/EmptyState";
 import getCurrentUser from "../actions/getCurrentUser";
 import getReservations from "../actions/getReservations";
@@ -20,7 +20,9 @@ const TripsPage = async () => {
   }
   return (
     <div>
-      <TripsClient reservations={reservations} currentUser={currentUser} />
+      <Suspense>
+        <TripsClient reservations={reservations} currentUser={currentUser} />
+      </Suspense>
     </div>
   );
 };

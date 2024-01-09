@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import EmptyState from "../components/EmptyState";
 import getCurrentUser from "../actions/getCurrentUser";
 import getReservations from "../actions/getReservations";
@@ -19,7 +19,12 @@ const ReservationsPage = async () => {
     return <EmptyState title="No Reservations" />;
   }
   return (
-    <ReservationsClient reservations={reservations} currentUser={currentUser} />
+    <Suspense>
+      <ReservationsClient
+        reservations={reservations}
+        currentUser={currentUser}
+      />
+    </Suspense>
   );
 };
 
